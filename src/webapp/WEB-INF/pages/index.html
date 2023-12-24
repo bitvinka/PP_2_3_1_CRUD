@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<h1>Главная страница</h1>
+<a href="/users/new">Добавить пользователя</a>
+<br>
+<br>
+<a href="/users">Список пользователей</a>
+<h2>Поиск пользователя по ID</h2>
+<form th:method="POST" th:action="@{/showUserById}" th:object="${user}">
+    <input type="text" th:name="id"/>
+    <input type="submit" value="Поиск"/>
+</form>
+</body>
+</html>
