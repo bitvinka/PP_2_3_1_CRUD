@@ -11,7 +11,7 @@
 <br>
 <a href="/users">Список пользователей</a>
 <h2>Поиск пользователя по ID</h2>
-<form th:method="POST" th:action="@{/showUserById}" th:object="${user}">
+<form th:method="GET" th:action="@{/showUserById}" th:object="${user}">
     <input type="text" th:name="id"/>
     <input type="submit" value="Поиск"/>
 </form>
