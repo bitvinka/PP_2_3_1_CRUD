@@ -33,7 +33,7 @@ public class UserController {
             return "redirect:/";
         }
         if (userService.getUserById(id) == null) {
-            model.addAttribute("message", "Пользователя с таким ID не существует. ");
+            model.addAttribute("message", "Пользователя с ID " + id + " не существует. ");
         }
         model.addAttribute("user", userService.getUserById(id));
         return "user";
