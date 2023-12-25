@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import web.model.User;
 import web.service.UserService;
 
+import java.util.Optional;
+
 
 @Controller
 public class UserController {
@@ -50,6 +52,10 @@ public class UserController {
 
     @GetMapping("/users")
     public String allUsers(Model model) {
+
+        if (userService.getUsers().isEmpty()) {
+            model.addAttribute("message", "Список пуст");
+        }
         model.addAttribute("users", userService.getUsers());
         return "users";
     }

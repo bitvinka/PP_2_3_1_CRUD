@@ -6,6 +6,7 @@
 </head>
 <body>
 <h1>Список пользователей</h1>
+<h2 th:text="${message}" th:style="'color: red'"></h2>
 <div th:each="user : ${users}">
     <a th:href="@{/showUser(id=${user.getId()})}"
        th:text="${user.getId()} + ' '+ ${user.getFirstName()} +' '+ ${user.getLastName()}+' '+ ${user.getEmail()}"></a>
