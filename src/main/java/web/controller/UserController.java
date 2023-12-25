@@ -27,7 +27,7 @@ public class UserController {
         return "index";
     }
 
-    @PostMapping("/showUserById")
+    @GetMapping("/showUserById")
     public String getUserById(@RequestParam(value = "id", required = false) Long id, Model model) {
         if (id == null) {
             return "redirect:/";
