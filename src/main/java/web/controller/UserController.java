@@ -1,8 +1,10 @@
 package web.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import web.model.User;
 import web.service.UserService;
 
-import java.util.Optional;
+import javax.validation.Valid;
 
 
 @Controller
@@ -42,14 +44,6 @@ public class UserController {
 
     }
 
-
-    @GetMapping("/showUser")
-    public String getUser(@RequestParam(value = "id") Long id, Model model) {
-        model.addAttribute("user", userService.getUserById(id));
-        return "user";
-    }
-
-
     @GetMapping("/users")
     public String allUsers(Model model) {
 
@@ -62,15 +56,17 @@ public class UserController {
 
 
     @GetMapping("/users/new")
-    public String newUser(Model model) {
-        model.addAttribute("user", new User());
+    public String newUser(@ModelAttribute("user") User user) {
         return "newUserForm";
     }
 
     @PostMapping("/addNewUser")
-    public String addUserForm(@ModelAttribute("user") User user) {
+    public String addUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            return "newUserForm";
+        }
         userService.addUser(user);
-        return "index";
+        return "redirect:/users";
     }
 
 
@@ -81,7 +77,10 @@ public class UserController {
     }
 
     @PostMapping("/user/edit")
-    public String editUserForm(@ModelAttribute("editUser") User user, @RequestParam(value = "id") Long id) {
+    public String editUserForm(@ModelAttribute("editUser") @Valid User user, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            return "editUserForm";
+        }
         userService.updateUser(user);
         return "redirect:/users";
     }

@@ -1,6 +1,11 @@
 package web.model;
 
+
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 import java.util.Objects;
 
 @Entity
@@ -11,13 +16,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @NotEmpty(message = "Имя не может быть пустым")
+    @Size(min = 2, max = 30, message = "Имя должно быть в диапазоне от 2 до 30 символов")
     private String firstName;
 
-    @Column(name = "last_name")
+    @NotEmpty(message = "Фамилия не может быть пустой")
+    @Size(min = 2, max = 30, message = "Фамилия должна быть в диапазоне от 2 до 30 символов")
     private String lastName;
 
-    @Column(name = "email")
+    @NotEmpty(message = "Поле не может быть пустым")
+    @Email(message = "Вы ввели не корректный email")
     private String email;
 
     public User() {
